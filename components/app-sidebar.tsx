@@ -60,7 +60,6 @@ function RouteItem({ route }: { route: SidebarRoute }) {
 }
 
 export function AppSidebar() {
-  const [open, setOpen] = useState(false);
   return (
     <Sidebar>
       <SidebarContent>
@@ -87,6 +86,22 @@ export function AppSidebar() {
               {routes.map((route) => (
                 <RouteItem key={route.title} route={route} />
               ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarSeparator />
+        <SidebarGroup>
+          <SidebarGroupLabel>Create</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <a href="/create">
+                    <span>🎥</span>
+                    <span>Create</span>
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

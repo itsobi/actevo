@@ -3,6 +3,7 @@ import { Lato } from 'next/font/google';
 import './globals.css';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import Header from '@/components/header';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -23,11 +24,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${lato.className}`}>
         <SidebarProvider>
-          <AppSidebar />
-          <main>
-            <SidebarTrigger />
-            {children}
-          </main>
+          <div className="flex h-full w-full">
+            <AppSidebar />
+            <div className="flex flex-col flex-1">
+              <Header />
+              <main className="flex-1">{children}</main>
+            </div>
+          </div>
         </SidebarProvider>
       </body>
     </html>
