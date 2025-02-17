@@ -1,3 +1,5 @@
+import { HomeVideosSection } from '@/components/videos/home-videos-section';
+
 export default function Home() {
-  return <div>Home page</div>;
+  return <HomeVideosSection />;
 }

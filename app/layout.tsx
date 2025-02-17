@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { Lato } from 'next/font/google';
 import './globals.css';
 import { AppSidebar } from '@/components/app-sidebar';
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import Header from '@/components/header';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -28,7 +29,10 @@ export default function RootLayout({
             <AppSidebar />
             <div className="flex flex-col flex-1">
               <Header />
-              <main className="flex-1">{children}</main>
+              <main className="flex-1 px-4 pb-8 max-w-7xl mx-auto w-full overflow-auto">
+                {children}
+              </main>
+              <Toaster richColors />
             </div>
           </div>
         </SidebarProvider>

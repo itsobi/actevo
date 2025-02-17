@@ -64,7 +64,9 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>ActEvo</SidebarGroupLabel>
+          <SidebarGroupLabel className="font-semibold italic">
+            ActEvo
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
