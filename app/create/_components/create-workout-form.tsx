@@ -145,9 +145,9 @@ export default function CreateWorkoutForm() {
           )}
         />
         <Button
-          className="font-bold"
+          className="font-bold shadow-lg"
           type="submit"
-          disabled={form.formState.isSubmitting}
+          disabled={!form.formState.isValid || form.formState.isSubmitting}
         >
           {form.formState.isSubmitting ? 'Submitting...' : 'Send Submission'}
         </Button>
