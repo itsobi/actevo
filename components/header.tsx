@@ -1,29 +1,31 @@
 'use client';
 
-import { PanelRight, Search } from 'lucide-react';
+import { PanelRight, Search, UserRoundX } from 'lucide-react';
 import { Button } from './ui/button';
 import { useSidebar } from './ui/sidebar';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import Link from 'next/link';
 import TypeCarousel from './carousel';
 import { usePathname } from 'next/navigation';
+import { signIn, useSession } from '@/lib/auth-client';
+import { AvatarDropdown } from './avatar-dropdown';
 
 export default function Header() {
-  const { toggleSidebar, isMobile } = useSidebar();
+  const { data: session } = useSession();
+  const { toggleSidebar } = useSidebar();
   const [isFocused, setIsFocused] = useState(false);
   const pathname = usePathname();
 
   const isHomePage = pathname === '/';
 
   return (
-    <div className="mb-2 sticky top-0 z-10 bg-background">
+    <div className="mb-2 sticky top-0 z-10 bg-background lg:px-4">
       <div className="flex justify-between items-center py-2 mb-2">
         <Button
           variant="ghost"
           size="icon"
-          className="ml-2"
+          className="mx-2"
           onClick={() => toggleSidebar()}
         >
           <PanelRight />
@@ -75,10 +77,26 @@ export default function Header() {
           </Link>
         </div>
 
-        <Avatar className="mr-2">
-          {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
-          <AvatarFallback>J</AvatarFallback>
-        </Avatar>
+        {session ? (
+          <div className="mr-2 mt-1.5">
+            <AvatarDropdown user={session.user} />
+          </div>
+        ) : (
+          // <AvatarDropdown user={session.user} />
+          <Button
+            onClick={() =>
+              signIn.social({
+                provider: 'google',
+                callbackURL: '/',
+              })
+            }
+            variant={'ghost'}
+            size={'icon'}
+            className="mr-2"
+          >
+            <UserRoundX />
+          </Button>
+        )}
       </div>
       {isHomePage && (
         <div className="flex justify-center items-center">
