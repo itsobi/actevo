@@ -23,6 +23,7 @@ import {
   CollapsibleTrigger,
 } from './ui/collapsible';
 import { useState } from 'react';
+import Link from 'next/link';
 
 function RouteItem({ route }: { route: SidebarRoute }) {
   const [open, setOpen] = useState(false);
@@ -93,15 +94,23 @@ export function AppSidebar() {
         </SidebarGroup>
         <SidebarSeparator />
         <SidebarGroup>
-          <SidebarGroupLabel>Create</SidebarGroupLabel>
+          <SidebarGroupLabel>Users Only Access</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
+                <SidebarMenuButton asChild disabled>
+                  <Link href="/ask-ai">
+                    <span>💡</span>
+                    <span>Ask AI</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <a href="/create">
+                  <Link href="/create">
                     <span>🎥</span>
                     <span>Create</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>

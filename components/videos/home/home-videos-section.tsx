@@ -1,7 +1,7 @@
 'use client';
 
 import useVideoTypeStore from '@/store';
-import { VideoCard } from './video-card';
+import { VideoCard } from '../video-card';
 import { allVideos } from '@/lib/data/allVideos';
 import { upperBodyVideos } from '@/lib/data/upperBody';
 import { lowerBodyVideos } from '@/lib/data/lowerBody';
@@ -34,9 +34,7 @@ export function HomeVideosSection() {
   return (
     <>
       {isLoading && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          {/* <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div> */}
-        </div>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" />
       )}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {videos.length > 0 ? (
