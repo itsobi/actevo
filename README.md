@@ -2,7 +2,6 @@
 
 ## Checklist
 
-- [ ] Neon DB
 - [ ] AI workout agent for all users vs signed in users
 - [ ] Handle video uploads through the app (Mux)
 
