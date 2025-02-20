@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
-import { sendEmail } from '@/lib/actions';
+import { sendEmail } from '@/lib/actions/sendEmail';
 import { CircleHelp } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
