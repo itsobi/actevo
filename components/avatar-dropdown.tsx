@@ -28,17 +28,14 @@ export function AvatarDropdown({ user }: AvatarDropdownProps) {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar className="w-9 h-9">
-          <AvatarImage src={user.image ?? ''} />
+          <AvatarImage src={user.image ?? ''} referrerPolicy="no-referrer" />
           <AvatarFallback>{user.name[0]}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mr-1">
         <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="cursor-pointer text-muted-foreground"
-          onClick={handleSignOut}
-        >
+        <DropdownMenuItem className="cursor-pointer" onClick={handleSignOut}>
           <LogOut />
           <span className="">Sign Out</span>
         </DropdownMenuItem>

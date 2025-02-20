@@ -1,5 +1,12 @@
 'use client';
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+
 import { PanelRight, Search, UserRoundX } from 'lucide-react';
 import { Button } from './ui/button';
 import { useSidebar } from './ui/sidebar';
@@ -10,6 +17,7 @@ import TypeCarousel from './carousel';
 import { usePathname } from 'next/navigation';
 import { signIn, useSession } from '@/lib/auth-client';
 import { AvatarDropdown } from './avatar-dropdown';
+import { toast } from 'sonner';
 
 export default function Header() {
   const { data: session } = useSession();
@@ -18,6 +26,17 @@ export default function Header() {
   const pathname = usePathname();
 
   const isHomePage = pathname === '/';
+
+  const handleSignIn = async () => {
+    try {
+      await signIn.social({
+        provider: 'google',
+        callbackURL: '/',
+      });
+    } catch (error) {
+      toast.error('There was an issue signing you in.');
+    }
+  };
 
   return (
     <div className="mb-2 sticky top-0 z-10 bg-background lg:px-4">
@@ -82,20 +101,23 @@ export default function Header() {
             <AvatarDropdown user={session.user} />
           </div>
         ) : (
-          // <AvatarDropdown user={session.user} />
-          <Button
-            onClick={() =>
-              signIn.social({
-                provider: 'google',
-                callbackURL: '/',
-              })
-            }
-            variant={'ghost'}
-            size={'icon'}
-            className="mr-2"
-          >
-            <UserRoundX />
-          </Button>
+          <TooltipProvider>
+            <Tooltip delayDuration={100}>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={handleSignIn}
+                  variant={'ghost'}
+                  size={'icon'}
+                  className="mr-2"
+                >
+                  <UserRoundX />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs text-muted-foreground">Sign in</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         )}
       </div>
       {isHomePage && (
