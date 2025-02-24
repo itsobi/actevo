@@ -2,7 +2,7 @@
 
 import { types } from '@/lib/type';
 import { cn } from '@/lib/utils';
-import useVideoTypeStore from '@/store';
+import { useVideoTypeStore } from '@/store';
 
 export default function TypeCarousel() {
   const { videoType, setVideoType } = useVideoTypeStore();

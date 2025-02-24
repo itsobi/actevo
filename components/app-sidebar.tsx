@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronRight, Command } from 'lucide-react';
 
 import {
   Sidebar,
@@ -15,6 +15,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarSeparator,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import { routes, SidebarRoute } from '@/lib/routes';
 import {
@@ -24,6 +25,10 @@ import {
 } from './ui/collapsible';
 import { useState } from 'react';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { useAIDialogStore } from '@/store';
+import { usePathname } from 'next/navigation';
+import { Session } from 'next-auth';
 
 function RouteItem({ route }: { route: SidebarRoute }) {
   const [open, setOpen] = useState(false);
@@ -60,7 +65,10 @@ function RouteItem({ route }: { route: SidebarRoute }) {
   );
 }
 
-export function AppSidebar() {
+export function AppSidebar({ session }: { session: Session | null }) {
+  const pathname = usePathname();
+  const { open, setOpen } = useAIDialogStore();
+  const { toggleSidebar, isMobile } = useSidebar();
   return (
     <Sidebar>
       <SidebarContent>
@@ -94,19 +102,29 @@ export function AppSidebar() {
         </SidebarGroup>
         <SidebarSeparator />
         <SidebarGroup>
-          <SidebarGroupLabel>Users Only Access</SidebarGroupLabel>
+          <SidebarGroupLabel>Sign in to access</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild disabled>
-                  <Link href="/ask-ai">
-                    <span>💡</span>
-                    <span>Ask AI</span>
-                  </Link>
+                <SidebarMenuButton
+                  onClick={() => {
+                    toggleSidebar();
+                    setOpen(!open);
+                  }}
+                  className={cn(
+                    (!session || pathname === '/ask-ai') &&
+                      'opacity-50 pointer-events-none'
+                  )}
+                >
+                  <span>💡</span>
+                  <span>Ask AI</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton
+                  asChild
+                  className={cn(!session && 'opacity-50 pointer-events-none')}
+                >
                   <Link href="/create">
                     <span>🎥</span>
                     <span>Create</span>
@@ -114,6 +132,15 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
+            {!isMobile && (
+              <div className="pt-16 flex flex-col justify-center items-center">
+                <p className="text-sm text-muted-foreground">Shortcuts</p>
+                <span className="flex items-center gap-0.5 text-muted-foreground">
+                  <Command className="w-4 h-4" />
+                  <span>+ B: open/close sidebar</span>
+                </span>
+              </div>
+            )}
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

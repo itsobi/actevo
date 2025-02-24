@@ -15,28 +15,30 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import TypeCarousel from './carousel';
 import { usePathname } from 'next/navigation';
-import { signIn, useSession } from '@/lib/auth-client';
 import { AvatarDropdown } from './avatar-dropdown';
-import { toast } from 'sonner';
+import { signIn } from '@/auth';
+import { signInAction } from '@/lib/actions/authActions';
+import { Session } from 'next-auth';
 
-export default function Header() {
-  const { data: session } = useSession();
+const userOnlyRoutes = [
+  {
+    href: '/ask-ai',
+    label: 'Ask AI',
+    emoji: '💡',
+  },
+  {
+    href: '/create',
+    label: 'Create',
+    emoji: '🎥',
+  },
+];
+
+export default function Header({ session }: { session: Session | null }) {
   const { toggleSidebar } = useSidebar();
   const [isFocused, setIsFocused] = useState(false);
   const pathname = usePathname();
 
   const isHomePage = pathname === '/';
-
-  const handleSignIn = async () => {
-    try {
-      await signIn.social({
-        provider: 'google',
-        callbackURL: '/',
-      });
-    } catch (error) {
-      toast.error('There was an issue signing you in.');
-    }
-  };
 
   return (
     <div className="mb-2 sticky top-0 z-10 bg-background lg:px-4">
@@ -60,13 +62,13 @@ export default function Header() {
         <div className="flex flex-1 justify-center w-full">
           <div
             className={cn(
-              'flex items-center border rounded-full mr-2 w-full max-w-2xl lg:ml-[60px]',
-              isFocused && 'border-gray-400'
+              'flex items-center border rounded-full mr-2 w-full max-w-4xl lg:ml-20',
+              isFocused && 'border-blue-200'
             )}
           >
             <input
               placeholder="Search"
-              className="flex-1 bg-transparent focus:outline-none px-4 "
+              className="flex-1 bg-transparent focus:outline-none px-4"
               onFocus={() => {
                 setIsFocused(true);
               }}
@@ -81,19 +83,15 @@ export default function Header() {
         </div>
 
         <div className="flex items-center">
-          <Link
-            href="/ask-ai"
-            className="hidden md:block border rounded-full py-2 px-4 hover:bg-muted-foreground/10 mr-2"
-          >
-            💡 Ask AI
-          </Link>
-
-          <Link
-            href="/create"
-            className="hidden md:block border rounded-full py-2 px-4 hover:bg-muted-foreground/10 mr-2"
-          >
-            🎥 Create
-          </Link>
+          {userOnlyRoutes.map((route) => (
+            <Link
+              key={route.href}
+              href={route.href}
+              className="hidden md:block border rounded-full py-2 px-4 hover:bg-muted-foreground/10 mr-2"
+            >
+              {route.emoji} {route.label}
+            </Link>
+          ))}
         </div>
 
         {session ? (
@@ -104,14 +102,20 @@ export default function Header() {
           <TooltipProvider>
             <Tooltip delayDuration={100}>
               <TooltipTrigger asChild>
-                <Button
-                  onClick={handleSignIn}
-                  variant={'ghost'}
-                  size={'icon'}
-                  className="mr-2"
+                <form
+                  action={async () => {
+                    await signInAction('google');
+                  }}
                 >
-                  <UserRoundX />
-                </Button>
+                  <Button
+                    type="submit"
+                    variant={'ghost'}
+                    size={'icon'}
+                    className="mr-2"
+                  >
+                    <UserRoundX />
+                  </Button>
+                </form>
               </TooltipTrigger>
               <TooltipContent>
                 <p className="text-xs text-muted-foreground">Sign in</p>

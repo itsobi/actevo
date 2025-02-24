@@ -1,6 +1,6 @@
 'use client';
 
-import useVideoTypeStore from '@/store';
+import { useVideoTypeStore } from '@/store';
 import { VideoCard } from '../video-card';
 import { allVideos } from '@/lib/data/allVideos';
 import { upperBodyVideos } from '@/lib/data/upperBody';

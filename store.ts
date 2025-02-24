@@ -5,9 +5,17 @@ interface VideoTypeState {
   setVideoType: (videoType: string) => void;
 }
 
-const useVideoTypeStore = create<VideoTypeState>()((set) => ({
+export const useVideoTypeStore = create<VideoTypeState>()((set) => ({
   videoType: 'all',
   setVideoType: (videoType) => set({ videoType }),
 }));
 
-export default useVideoTypeStore;
+interface AIDialogState {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+export const useAIDialogStore = create<AIDialogState>()((set) => ({
+  open: false,
+  setOpen: (open) => set({ open }),
+}));
