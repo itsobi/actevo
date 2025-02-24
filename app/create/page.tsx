@@ -1,7 +1,22 @@
 import { PageHeader } from '@/components/page-header';
 import CreateWorkoutForm from './_components/create-workout-form';
 
-export default function CreatePage() {
+import { CustomAlertDialog } from '@/components/custom-alert-dialog';
+import { auth } from '@/auth';
+
+export default async function CreatePage() {
+  const session = await auth();
+
+  if (!session) {
+    return (
+      <CustomAlertDialog
+        title="Unauthorized"
+        description="Sorry, you must be signed in to access this feature."
+        href="/"
+      />
+    );
+  }
+
   return (
     <div>
       <PageHeader

@@ -5,6 +5,8 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import Header from '@/components/header';
 import { Toaster } from 'sonner';
+import { AIDialog } from '@/components/ai-dialog';
+import { auth } from '@/auth';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,23 +18,26 @@ const lato = Lato({
   weight: ['400', '700'],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html lang="en">
       <body className={`${lato.className}`}>
         <SidebarProvider>
           <div className="flex h-full w-full">
-            <AppSidebar />
+            <AppSidebar session={session} />
             <div className="flex flex-col flex-1">
-              <Header />
+              <Header session={session} />
               <main className="flex-1 px-4 pb-8 max-w-7xl mx-auto w-full overflow-auto">
                 {children}
               </main>
               <Toaster richColors />
+              <AIDialog />
             </div>
           </div>
         </SidebarProvider>
