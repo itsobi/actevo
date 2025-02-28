@@ -19,13 +19,10 @@ interface AvatarDropdownProps {
 }
 
 export function AvatarDropdown({ user }: AvatarDropdownProps) {
-  // const handleSignOut = async () => {
-  //   await signOut();
-  // };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar className="w-9 h-9">
+        <Avatar className="w-8 h-8">
           <AvatarImage src={user?.image ?? ''} referrerPolicy="no-referrer" />
           <AvatarFallback>{user?.name?.[0]}</AvatarFallback>
         </Avatar>

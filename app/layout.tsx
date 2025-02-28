@@ -37,7 +37,7 @@ export default async function RootLayout({
                 {children}
               </main>
               <Toaster richColors />
-              <AIDialog />
+              <AIDialog session={session} />
             </div>
           </div>
         </SidebarProvider>

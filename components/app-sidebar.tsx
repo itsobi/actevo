@@ -102,7 +102,7 @@ export function AppSidebar({ session }: { session: Session | null }) {
         </SidebarGroup>
         <SidebarSeparator />
         <SidebarGroup>
-          <SidebarGroupLabel>Sign in to access</SidebarGroupLabel>
+          <SidebarGroupLabel>AI/Video Contributions</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
@@ -112,8 +112,7 @@ export function AppSidebar({ session }: { session: Session | null }) {
                     setOpen(!open);
                   }}
                   className={cn(
-                    (!session || pathname === '/ask-ai') &&
-                      'opacity-50 pointer-events-none'
+                    pathname === '/ask-ai' && 'opacity-50 pointer-events-none'
                   )}
                 >
                   <span>💡</span>

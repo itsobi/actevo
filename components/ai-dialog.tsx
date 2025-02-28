@@ -11,9 +11,10 @@ import {
 import { useAIDialogStore } from '@/store';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
-import AIChatConversation from './ai-chat-conversation';
+import { Session } from 'next-auth';
+import DialogAIChat from './dialog-ai-chat';
 
-export function AIDialog() {
+export function AIDialog({ session }: { session: Session | null }) {
   const { open, setOpen } = useAIDialogStore();
   const router = useRouter();
 
@@ -27,7 +28,9 @@ export function AIDialog() {
       <DialogTrigger className="hidden">Open</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-xl">💡 ActEvo Assistant</DialogTitle>
+          <DialogTitle className="text-xl">
+            💡 ActEvo Workout Assistant
+          </DialogTitle>
           <DialogDescription asChild>
             <div className="flex flex-col justify-center items-center w-full pt-4">
               <p className="text-center text-muted-foreground w-[400px]">
@@ -47,7 +50,7 @@ export function AIDialog() {
           </DialogDescription>
         </DialogHeader>
 
-        <AIChatConversation />
+        <DialogAIChat />
       </DialogContent>
     </Dialog>
   );
