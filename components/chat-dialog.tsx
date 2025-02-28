@@ -11,16 +11,15 @@ import {
 import { useAIDialogStore } from '@/store';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
-import { Session } from 'next-auth';
-import DialogAIChat from './dialog-ai-chat';
+import Chat from './chat';
 
-export function AIDialog({ session }: { session: Session | null }) {
+export function ChatDialog() {
   const { open, setOpen } = useAIDialogStore();
   const router = useRouter();
 
   const handleFullScreen = () => {
     setOpen(false);
-    router.push('/ask-ai');
+    router.push('/chat');
   };
 
   return (
@@ -29,7 +28,7 @@ export function AIDialog({ session }: { session: Session | null }) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="text-xl">
-            💡 ActEvo Workout Assistant
+            💬 ActEvo Workout Assistant
           </DialogTitle>
           <DialogDescription asChild>
             <div className="flex flex-col justify-center items-center w-full pt-4">
@@ -50,7 +49,7 @@ export function AIDialog({ session }: { session: Session | null }) {
           </DialogDescription>
         </DialogHeader>
 
-        <DialogAIChat />
+        <Chat />
       </DialogContent>
     </Dialog>
   );

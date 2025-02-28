@@ -5,7 +5,8 @@ import { cn } from '@/lib/utils';
 import { useChat } from '@ai-sdk/react';
 import { toast } from 'sonner';
 import { useEffect, useRef } from 'react';
-export function AskAIChatScreen() {
+
+export function ChatScreen() {
   const { messages, input, handleInputChange, handleSubmit, status } = useChat({
     api: '/api/chat',
     onError: (error: Error) => {
@@ -22,7 +23,7 @@ export function AskAIChatScreen() {
 
   return (
     <div className="flex flex-col">
-      <div className="overflow-y-auto h-[80vh] py-4 flex flex-col gap-4">
+      <div className="overflow-y-auto h-[75vh] py-4 flex flex-col gap-4">
         {messages.map((m) => (
           <div
             key={m.id}

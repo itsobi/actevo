@@ -5,8 +5,9 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import Header from '@/components/header';
 import { Toaster } from 'sonner';
-import { AIDialog } from '@/components/ai-dialog';
+
 import { auth } from '@/auth';
+import { ChatDialog } from '@/components/chat-dialog';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -37,7 +38,7 @@ export default async function RootLayout({
                 {children}
               </main>
               <Toaster richColors />
-              <AIDialog session={session} />
+              <ChatDialog />
             </div>
           </div>
         </SidebarProvider>

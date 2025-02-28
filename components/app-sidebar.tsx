@@ -112,11 +112,11 @@ export function AppSidebar({ session }: { session: Session | null }) {
                     setOpen(!open);
                   }}
                   className={cn(
-                    pathname === '/ask-ai' && 'opacity-50 pointer-events-none'
+                    pathname === '/chat' && 'opacity-50 pointer-events-none'
                   )}
                 >
-                  <span>💡</span>
-                  <span>Ask AI</span>
+                  <span>💬</span>
+                  <span>Chat</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>

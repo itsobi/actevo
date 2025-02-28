@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 
-export default function DialogAIChat() {
+export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit, status } = useChat({
     api: '/api/chat',
     onError: (error: Error) => {

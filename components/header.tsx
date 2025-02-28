@@ -22,9 +22,9 @@ import { Session } from 'next-auth';
 
 const userOnlyRoutes = [
   {
-    href: '/ask-ai',
-    label: 'Ask AI',
-    emoji: '💡',
+    href: '/',
+    label: 'Chat',
+    emoji: '💬',
   },
   {
     href: '/create',
