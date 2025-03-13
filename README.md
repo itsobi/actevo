@@ -2,7 +2,6 @@
 
 ## Checklist
 
-- [ ] Persist chat history
 - [ ] Handle video uploads through the app (Mux)
 
 This project is bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).

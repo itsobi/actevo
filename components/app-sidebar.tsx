@@ -26,7 +26,6 @@ import {
 import { useState } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { useAIDialogStore } from '@/store';
 import { usePathname } from 'next/navigation';
 import { Session } from 'next-auth';
 
@@ -67,8 +66,13 @@ function RouteItem({ route }: { route: SidebarRoute }) {
 
 export function AppSidebar({ session }: { session: Session | null }) {
   const pathname = usePathname();
-  const { open, setOpen } = useAIDialogStore();
   const { toggleSidebar, isMobile } = useSidebar();
+
+  const handleChatAndCreateClick = () => {
+    if (isMobile) {
+      toggleSidebar();
+    }
+  };
   return (
     <Sidebar>
       <SidebarContent>
@@ -106,17 +110,11 @@ export function AppSidebar({ session }: { session: Session | null }) {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton
-                  onClick={() => {
-                    toggleSidebar();
-                    setOpen(!open);
-                  }}
-                  className={cn(
-                    pathname === '/chat' && 'opacity-50 pointer-events-none'
-                  )}
-                >
-                  <span>💬</span>
-                  <span>Chat</span>
+                <SidebarMenuButton asChild>
+                  <Link href="/chat" onClick={handleChatAndCreateClick}>
+                    <span>💬</span>
+                    <span>Chat</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
@@ -124,9 +122,12 @@ export function AppSidebar({ session }: { session: Session | null }) {
                   asChild
                   className={cn(!session && 'opacity-50 pointer-events-none')}
                 >
-                  <Link href="/create">
+                  <Link href="/create" onClick={handleChatAndCreateClick}>
                     <span>🎥</span>
                     <span>Create</span>
+                    {!session && (
+                      <span className="text-xs">(Signed In Access Only)</span>
+                    )}
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

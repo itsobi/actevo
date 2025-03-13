@@ -16,13 +16,12 @@ import Link from 'next/link';
 import TypeCarousel from './carousel';
 import { usePathname } from 'next/navigation';
 import { AvatarDropdown } from './avatar-dropdown';
-import { signIn } from '@/auth';
 import { signInAction } from '@/lib/actions/authActions';
 import { Session } from 'next-auth';
 
 const userOnlyRoutes = [
   {
-    href: '/',
+    href: '/chat',
     label: 'Chat',
     emoji: '💬',
   },
