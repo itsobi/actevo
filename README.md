@@ -2,7 +2,8 @@
 
 ## Checklist
 
-- [ ] Handle video uploads through the app (Mux)
+- [ ] Only allow videos to be uploaded & restrict larger video files
+- [ ] Train assistant with my personal workouts
 
 This project is bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 

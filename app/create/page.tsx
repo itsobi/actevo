@@ -1,8 +1,9 @@
 import { PageHeader } from '@/components/page-header';
-import CreateWorkoutForm from './_components/create-workout-form';
+import { YoutubeForm } from './_components/youtube-form';
 
 import { CustomAlertDialog } from '@/components/custom-alert-dialog';
 import { auth } from '@/auth';
+import { CreateWorkoutForm } from './_components/create-workout-form';
 
 export default async function CreatePage() {
   const session = await auth();

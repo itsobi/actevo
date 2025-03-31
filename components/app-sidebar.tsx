@@ -126,7 +126,7 @@ export function AppSidebar({ session }: { session: Session | null }) {
                     <span>🎥</span>
                     <span>Create</span>
                     {!session && (
-                      <span className="text-xs">(Signed In Access Only)</span>
+                      <span className="text-xs">(User Access Only)</span>
                     )}
                   </Link>
                 </SidebarMenuButton>

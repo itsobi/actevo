@@ -2,7 +2,7 @@ import db from '@/db';
 import { ips } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import 'server-only';
-import { getIP } from './actions/getIP';
+import { getIP } from './actions/get-ip';
 
 export const trackIPforNonSignedInUser = async () => {
   try {
@@ -30,7 +30,7 @@ export const trackIPforNonSignedInUser = async () => {
           success: false,
           error: {
             message:
-              'Sorry, you have reached the limit. Sign in to gain full access.',
+              'Sorry, you have reached your limit. Sign in to gain full access.',
             code: 429,
           },
         };

@@ -1,20 +1,29 @@
 'use server';
 
+import { auth } from '@/auth';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const myEmail = process.env.MY_EMAIL;
 
 type values = {
-  username: string;
   title: string;
   link: string;
   description: string;
+  selfUpload?: boolean;
 };
 export const sendEmail = async (values: values) => {
-  const { username, title, link, description } = values;
+  const session = await auth();
+  const name = session?.user?.name;
+  if (!name) {
+    return {
+      success: false,
+      message: 'Please login to submit a workout',
+    };
+  }
+  const { title, link, description, selfUpload } = values;
 
-  if (!username || !title || !link || !description) {
+  if (!name || !title || !link || !description) {
     return {
       success: false,
       message: 'All fields are required',
@@ -25,7 +34,9 @@ export const sendEmail = async (values: values) => {
     from: 'ActEvo <onboarding@resend.dev>',
     to: myEmail!,
     subject: 'New Workout Submission',
-    text: `Username: ${username}\nTitle: ${title}\nLink: ${link}\nDescription: ${description}`,
+    text: `${
+      selfUpload ? 'Self-Upload' : 'Youtube'
+    } - Name: ${name}\nTitle: ${title}\nLink: ${link}\nDescription: ${description}`,
   });
 
   if (error) {

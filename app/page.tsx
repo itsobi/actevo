@@ -1,5 +1,5 @@
 import { HomeVideosSection } from '@/components/videos/home/home-videos-section';
 
-export default function Home() {
+export default async function Home() {
   return <HomeVideosSection />;
 }

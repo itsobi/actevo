@@ -12,7 +12,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { LogOut } from 'lucide-react';
 import { User } from 'next-auth';
-import { signOutAction } from '@/lib/actions/authActions';
+import { signOutAction } from '@/lib/actions/auth-actions';
 
 interface AvatarDropdownProps {
   user: User | undefined;

@@ -14,12 +14,22 @@ export function NonUserChat() {
     },
   });
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const hasShownWarning = useRef(false);
 
   useEffect(() => {
     if (messagesEndRef.current && messages.length > 0) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
+
+  useEffect(() => {
+    if (!hasShownWarning.current) {
+      toast.warning(
+        'This chat will not be saved. Please sign in to save your chats.'
+      );
+      hasShownWarning.current = true;
+    }
+  }, []);
 
   return (
     <div className="flex flex-col">

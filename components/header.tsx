@@ -16,7 +16,7 @@ import Link from 'next/link';
 import TypeCarousel from './carousel';
 import { usePathname } from 'next/navigation';
 import { AvatarDropdown } from './avatar-dropdown';
-import { signInAction } from '@/lib/actions/authActions';
+import { signInAction } from '@/lib/actions/auth-actions';
 import { Session } from 'next-auth';
 
 const userOnlyRoutes = [

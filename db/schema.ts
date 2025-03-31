@@ -35,3 +35,15 @@ export const messagesTable = pgTable('messages', {
   revisionId: text('revision_id'),
   toolInvocations: jsonb('tool_invocations').default('[]'),
 });
+
+export const videos = pgTable('videos', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: text('user_id').notNull(),
+  title: text('title').notNull(),
+  description: text('description').notNull(),
+  muxStatus: text('mux_status'),
+  muxAssetId: text('mux_asset_id').unique(),
+  muxUploadId: text('mux_upload_id').unique(),
+  muxPlaybackId: text('mux_playback_id').unique(),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+});
